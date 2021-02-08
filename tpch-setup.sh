@@ -1,5 +1,18 @@
 #!/bin/bash
 
+sudo mkdir -p /var/lib/emr-hook/hive_hook-hadoop
+sudo chmod -R 777 /var/lib/emr-hook/hive_hook-hadoop
+
+
+if [ -L "${BASH_SOURCE-$0}" ]; then
+  FWDIR=$(dirname "$(readlink "${BASH_SOURCE-$0}")")
+else
+  FWDIR=$(dirname "${BASH_SOURCE-$0}")
+fi
+
+export HADOOP_CLASSPATH=${FWDIR}/hadoop-lzo-0.4.19.jar
+
+
 function usage {
 	echo "Usage: tpch-setup.sh scale_factor [temp_directory]"
 	exit 1
